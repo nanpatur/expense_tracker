@@ -1,18 +1,19 @@
+import 'package:expense_tracker/models/login_model.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
-import 'home.dart';
+import 'home_screen.dart';
 import '../widgets/button.dart';
 import '../widgets/text_form_field.dart';
-import '../services/auth.dart';
+import '../services/auth_service.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginScreenState extends State<LoginScreen> {
   bool _isLoading = false;
   final _formKey = GlobalKey<FormState>();
   late String username, password;
@@ -169,17 +170,16 @@ class _LoginState extends State<Login> {
     setState(() {
       _isLoading = true;
     });
-    var data = {'username': username, 'password': password};
 
-    var res = await Network().login(data);
-    if (res.statusCode == 200) {
+    try {
+      await authService
+          .login(LoginModel(username: username, password: password));
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const Home()),
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
       );
-    } else {
-      var body = json.decode(res.body);
-      _showMsg(body['message']);
+    } catch (e) {
+      _showMsg(json.decode(e.toString())['message']);
     }
 
     setState(() {

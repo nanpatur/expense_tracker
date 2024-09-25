@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'screens/welcome.dart';
-import 'screens/home.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'screens/welcome_screen.dart';
+import 'screens/home_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Expense Tracker',
       debugShowCheckedModeBanner: false,
       home: const CheckAuth(),
       darkTheme:
@@ -41,8 +41,8 @@ class _CheckAuthState extends State<CheckAuth> {
   }
 
   void _checkIfLoggedIn() async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var token = localStorage.getString('token');
+    const storage = FlutterSecureStorage();
+    var token = await storage.read(key: 'token');
     if (token != null) {
       if (mounted) {
         setState(() {
@@ -56,7 +56,7 @@ class _CheckAuthState extends State<CheckAuth> {
   Widget build(BuildContext context) {
     Widget child;
     if (isAuth) {
-      child = const Home();
+      child = const HomeScreen();
     } else {
       child = const Welcome();
     }

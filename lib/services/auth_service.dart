@@ -1,10 +1,14 @@
 import 'dart:convert';
+import 'package:dio/dio.dart';
+import 'package:expense_tracker/network/dio_client.dart';
+import 'package:expense_tracker/models/login_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class Network{
+class AuthService{
   final String _url = 'https://dummyjson.com';
   var token;
+  
 
   _getToken() async{
     const storage = FlutterSecureStorage();
@@ -15,36 +19,25 @@ class Network{
     }
   }
 
-  login(data) async{
-    Uri fullUrl = Uri.parse('$_url/auth/login');
-    var res = await http.post(
-      fullUrl,
-      body: jsonEncode(data),
-      headers: _setHeaders()
-    );
-
-    var body = json.decode(res.body);
-    if (res.statusCode == 200) {
+  login(LoginModel data) async{
+    try {
+      var dioClient = DioClient();
+      var res = await dioClient.dio.post('/auth/login', data: data.toJson());
       const storage = FlutterSecureStorage();
-      storage.write(key: 'token', value: json.encode(body['token']));
-      storage.write(key: 'user', value: json.encode(body['user']));
+      storage.write(key: 'token', value: json.encode(res.data['accessToken']));
+    }  catch (e) {
+      if (e is DioException) {
+        throw e.error ?? "Error";
+      } else {
+        throw Exception("Error");
+      }
     }
-    return res;
   }
 
   logout() async{
     const storage = FlutterSecureStorage();
     storage.delete(key: 'token');
     storage.delete(key: 'user');
-  }
-
-  auth(data) async{
-    Uri fullUrl = Uri.parse('$_url/auth');
-    return await http.post(
-      fullUrl,
-      body: jsonEncode(data),
-      headers: _setHeaders()
-    );
   }
 
   getData(apiURL) async{
@@ -62,3 +55,5 @@ class Network{
     'Authorization': 'Bearer $token',
   };
 }
+
+final AuthService authService = AuthService();

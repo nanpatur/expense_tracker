@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/button.dart';
-import 'login.dart';
+import 'login_screen.dart';
 
 class Welcome extends StatelessWidget {
   const Welcome({super.key});
@@ -44,7 +44,7 @@ class Welcome extends StatelessWidget {
             variant: ETButtonVariant.primary,
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const Login()));
+                  MaterialPageRoute(builder: (context) => const LoginScreen()));
             }),
         const SizedBox(height: 10),
         ETButton(

@@ -62,7 +62,7 @@ class ETButton extends StatelessWidget {
       case ETButtonSize.large:
         return const Size(double.infinity, 60);
       case ETButtonSize.fit:
-        return const Size(0, 0);
+        return const Size(0, 30);
       default:
         return const Size(double.infinity, 50);
     }
