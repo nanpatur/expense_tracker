@@ -6,8 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:date_time_format/date_time_format.dart';
 import 'package:intl/intl.dart';
 
-class ExpenseScreen extends StatelessWidget {
+class ExpenseScreen extends StatefulWidget {
   const ExpenseScreen({super.key});
+
+  @override
+  State<ExpenseScreen> createState() => _ExpenseScreenState();
+}
+
+class _ExpenseScreenState extends State<ExpenseScreen> {
+  String? _activeFilter = '';
 
   Icon _generateCategoryIcon(String category) {
     switch (category) {
@@ -31,12 +38,12 @@ class ExpenseScreen extends StatelessWidget {
   }
 
   String _formatDate(String date) {
-    // return time in format: 12:00 PM
     return DateTimeFormat.format(DateTime.parse(date), format: 'H:i A');
   }
 
   String _formatAmount(int amount) {
-    return NumberFormat.simpleCurrency(locale: 'id_ID', decimalDigits: 0)
+    return NumberFormat.simpleCurrency(
+            locale: 'id_ID', decimalDigits: 0, name: 'Rp ')
         .format(amount);
   }
 
@@ -55,24 +62,84 @@ class ExpenseScreen extends StatelessWidget {
                 Center(
                     child: ETButton(
                         text: 'Today',
-                        onPressed: () {},
-                        variant: ETButtonVariant.primary,
+                        onPressed: () {
+                          setState(() {
+                            _activeFilter = 'today';
+                          });
+                        },
+                        variant: _activeFilter == 'today'
+                            ? ETButtonVariant.primary
+                            : ETButtonVariant.secondary,
                         size: ETButtonSize.fit)),
                 const SizedBox(width: 4),
                 Center(
                     child: ETButton(
                         text: 'This Week',
-                        onPressed: () {},
-                        variant: ETButtonVariant.secondary,
+                        onPressed: () {
+                          setState(() {
+                            _activeFilter = 'week';
+                          });
+                        },
+                        variant: _activeFilter == 'week'
+                            ? ETButtonVariant.primary
+                            : ETButtonVariant.secondary,
                         size: ETButtonSize.fit)),
                 const SizedBox(width: 4),
                 Center(
                     child: ETButton(
                         text: 'This Month',
-                        onPressed: () {},
-                        variant: ETButtonVariant.secondary,
+                        onPressed: () {
+                          setState(() {
+                            _activeFilter = 'month';
+                          });
+                        },
+                        variant: _activeFilter == 'month'
+                            ? ETButtonVariant.primary
+                            : ETButtonVariant.secondary,
                         size: ETButtonSize.fit)),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.calendar_month, size: 32)),
               ]),
+            ),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 8),
+              width: double.infinity,
+              child: Card(
+                elevation: 0,
+                color: Colors.grey.shade900,
+                child: StreamBuilder<int>(
+                  stream: expenseBloc.totalSumExpenses,
+                  builder: (context, AsyncSnapshot<int> snapshot) {
+                    if (snapshot.hasData) {
+                      return Padding(
+                          padding: const EdgeInsets.only(top: 16, bottom: 16),
+                          child: Column(
+                            children: [
+                              const Text(
+                                'Spend so far',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    color: Colors.white),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                _formatAmount(snapshot.data!),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 24,
+                                    color: Colors.white),
+                              )
+                            ],
+                          ));
+                    } else if (snapshot.hasError) {
+                      return Text(snapshot.error.toString());
+                    }
+                    return const CircularProgressIndicator();
+                  },
+                ),
+              ),
             ),
             Expanded(
               child: StreamBuilder<List<ExpenseModel>>(
@@ -98,15 +165,13 @@ class ExpenseScreen extends StatelessWidget {
                                 _formatDate(
                                     snapshot.data![index].date.toString()),
                                 style: const TextStyle(fontSize: 12),
-                                ),
-                              trailing: Text(_formatAmount(
-                                  snapshot.data![index].amount!
                               ),
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16),
+                              trailing: Text(
+                                _formatAmount(snapshot.data![index].amount!),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 16),
                               ),
-                            )
-                            );
+                            ));
                       },
                     );
                   } else if (snapshot.hasError) {

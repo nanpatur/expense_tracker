@@ -8,19 +8,20 @@ class ExpenseBloc {
   final PublishSubject<List<ExpenseModel>> _expenseFetcher = PublishSubject<List<ExpenseModel>>();
 
   Stream<List<ExpenseModel>> get allExpenses => _expenseFetcher.stream;
+  Stream<int> get totalSumExpenses => _expenseFetcher.stream.map((event) => event.fold(0, (prev, element) => prev + (element.amount ?? 0)));
 
   ExpenseBloc(){
     getAllExpenses();
   }
 
   getAllExpenses() async {
-    List<ExpenseModel> todo = await repository.getAllExpenses();
-    _expenseFetcher.sink.add(todo);
+    List<ExpenseModel> expense = await repository.getAllExpenses();
+    _expenseFetcher.sink.add(expense);
   }
 
-  addExpense(ExpenseModel todo) async {
+  addExpense(ExpenseModel expense) async {
     try {
-      await repository.insertExpense(todo);
+      await repository.insertExpense(expense);
       getAllExpenses();
       
     } catch (e) {
@@ -28,8 +29,8 @@ class ExpenseBloc {
     }
   }
 
-  updateExpense(ExpenseModel todo) async {
-    repository.updateExpense(todo);
+  updateExpense(ExpenseModel expense) async {
+    repository.updateExpense(expense);
     getAllExpenses();
   }
 
@@ -37,6 +38,7 @@ class ExpenseBloc {
     repository.deleteExpense(id);
     getAllExpenses();
   }
+
 
 }
 

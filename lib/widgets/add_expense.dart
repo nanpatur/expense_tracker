@@ -1,6 +1,7 @@
 import 'package:expense_tracker/blocs/expense_bloc.dart';
 import 'package:expense_tracker/models/expense_model.dart';
 import 'package:expense_tracker/widgets/button.dart';
+import 'package:expense_tracker/widgets/text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -36,36 +37,45 @@ class _AddExpenseState extends State<AddExpense> {
           const Text('Add New Expense',
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.left),
+                const SizedBox(height: 10),
                 const Text(
                     'Enter the details of your expense to help you track your spending.',
                     style: TextStyle(fontSize: 14)),
-                const SizedBox(height: 20),
-          TextField(
-            decoration: const InputDecoration(
-              hintText: "Enter Amount",
-            ),
+                const SizedBox(height: 32),
+          ETTextFormField(
+            label: "Enter Amount (Rp)",
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
             ],
             keyboardType: TextInputType.number,
             onChanged: (value) {
               setState(() {
-                amount = int.parse(value);
+                amount = int.parse(value!);
               });
+            },
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter amount';
+              }
+              return null;
             },
           ),
           const SizedBox(
             height: 10.0,
           ),
-          TextField(
-            decoration: const InputDecoration(
-              hintText: "Enter Description",
-            ),
+          ETTextFormField(
+            label: "Enter Description",
             keyboardType: TextInputType.text,
             onChanged: (value) {
               setState(() {
                 description = value;
               });
+            },
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter description';
+              }
+              return null;
             },
           ),
           const SizedBox(
@@ -97,6 +107,8 @@ class _AddExpenseState extends State<AddExpense> {
                 borderRadius: BorderRadius.circular(6),
               ),
             ),
+            validator: (value) =>
+                value == null ? 'Please select a category' : null,
           ),
           const SizedBox(
             height: 25.0,

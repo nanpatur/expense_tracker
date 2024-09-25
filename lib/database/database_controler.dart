@@ -10,16 +10,17 @@ class DatabaseController{
     return result;
   }
 
+// add optional filter by date range
   Future<List<ExpenseModel>> getAllExpenses({List<String>? columns}) async {
     final db = await dbClient.db;
     var result = await db.query("expenseTable",columns: columns);
-    List<ExpenseModel> todos = result.isNotEmpty ? result.map((item) => ExpenseModel.fromJSON(item)).toList() : [];
-    return todos;
+    List<ExpenseModel> expenses = result.isNotEmpty ? result.map((item) => ExpenseModel.fromJSON(item)).toList() : [];
+    return expenses;
   }
 
-  Future<int> updateExpense(ExpenseModel todo) async {
+  Future<int> updateExpense(ExpenseModel expense) async {
     final db = await dbClient.db;
-    var result = await db.update("expenseTable", todo.toJSON(),where: "id = ?", whereArgs: [todo.id]);
+    var result = await db.update("expenseTable", expense.toJSON(),where: "id = ?", whereArgs: [expense.id]);
     return result;
   }
 
