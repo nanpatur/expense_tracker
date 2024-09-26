@@ -11,12 +11,13 @@ class AuthInterceptor extends Interceptor {
   @override
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
-    String token = const FlutterSecureStorage().read(key: 'token').toString();
+      const storage = FlutterSecureStorage();
+    var token = (await storage.read(key: 'token'));
     options.headers.addAll({
       'Authorization': 'Bearer $token',
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
     });
-    options.headers.addAll({'Content-type': 'application/json'});
-    options.headers.addAll({'Accept': 'application/json'});
     handler.next(options);
   }
 
