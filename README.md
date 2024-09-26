@@ -31,15 +31,19 @@ To get a local copy of the project up and running, follow these steps.
 ### Installation
 
 1.  Clone the repo:
-    `git clone https://github.com/your-username/expense-tracker.git` 
+   
+    `git clone https://github.com/worldwide-global-tech-development/learn-flutter--expense-tracker.git` 
     
-2.  Navigate to the project directory:
+3.  Navigate to the project directory:
+   
     `cd expense-tracker` 
     
-3.  Install dependencies:
+5.  Install dependencies:
+   
     `flutter pub get` 
     
-4.  Run the app:
+7.  Run the app:
+   
     `flutter run` 
     
 
