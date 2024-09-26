@@ -1,6 +1,7 @@
 import 'package:expense_tracker/screens/login_screen.dart';
 import 'package:expense_tracker/widgets/atoms/button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WelcomeTemplate extends StatefulWidget {
   const WelcomeTemplate({super.key});
@@ -19,19 +20,19 @@ class _WelcomeTemplateState extends State<WelcomeTemplate> {
   }
 
   Widget _titleAndSubtitle() {
-    return const Column(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text('Expense Tracker',
-            style: TextStyle(
+        Text(AppLocalizations.of(context)?.heroTitle ?? '',
+            style: const TextStyle(
               color: Color(0xFF212121),
               fontSize: 28,
               fontWeight: FontWeight.bold,
             )),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Text(
-          'Manage your expenses with ease and simplicity.',
-          style: TextStyle(
+          AppLocalizations.of(context)?.heroSubtitle ?? '',
+          style: const TextStyle(
             color: Color(0xFF212121),
             fontSize: 14,
           ),
@@ -45,7 +46,7 @@ class _WelcomeTemplateState extends State<WelcomeTemplate> {
     return Column(
       children: [
         ETButton(
-            text: 'Login',
+            text: AppLocalizations.of(context)?.login ?? '',
             variant: ETButtonVariant.primary,
             onPressed: () {
               Navigator.push(context,
@@ -53,7 +54,7 @@ class _WelcomeTemplateState extends State<WelcomeTemplate> {
             }),
         const SizedBox(height: 10),
         ETButton(
-            text: 'Register',
+            text: AppLocalizations.of(context)?.register ?? '',
             onPressed: () {},
             variant: ETButtonVariant.secondary)
       ],

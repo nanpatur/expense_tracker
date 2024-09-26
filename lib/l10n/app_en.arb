@@ -4,7 +4,8 @@
     "description": "The conventional newborn programmer greeting"
   },
   "today": "Today",
-  "@today": {
-    "description": "any"
-  }
+  "heroTitle": "Expense Tracker",
+  "heroSubtitle": "Manage your expenses with ease and simplicity.",
+  "login": "Login",
+  "register": "Register"
 }
