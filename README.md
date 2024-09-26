@@ -36,7 +36,7 @@ To get a local copy of the project up and running, follow these steps.
     
 3.  Navigate to the project directory:
    
-    `cd expense-tracker` 
+    `cd learn-flutter--expense-tracker` 
     
 5.  Install dependencies:
    
