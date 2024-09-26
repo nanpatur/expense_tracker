@@ -49,17 +49,25 @@ To get a local copy of the project up and running, follow these steps.
 
 ## Project Structure
 
+## Project Structure
+```markdown
 lib/
-│
-├── main.dart            # Main entry point of the app
-├── ui/                  # UI components
-│   ├── home.dart        # Home screen
-│   ├── add_expense.dart # Add expense screen
-│   └── ...
-├── services/            # Business logic and API services
-│   └── auth_service.dart
-└── models/              # Data models
-    └── expense.dart
+├── bloc/               # Business logic components for managing app states
+├── database/           # Database-related files (SQLite, database helper)
+├── interceptors/       # HTTP interceptors for network requests
+├── i10n/               # Localization files for supporting multiple languages
+├── models/             # Data models representing app entities (e.g., expenses, users)
+├── network/            # Network-related files for handling API requests
+├── resources/          # Static resources and repositories
+├── screens/            # UI screens for various parts of the app
+├── services/           # Business logic and services (e.g., authentication, data fetching)
+├── widgets/            # Reusable UI components
+│   ├── atoms/          # Basic building blocks of the UI
+│   ├── molecules/      # Components made of atoms
+│   ├── organisms/      # Complex UI components made of molecules
+│   └── templates/      # Page-level UI layouts
+└── main.dart
+```
 
 ## Technologies Used
 
