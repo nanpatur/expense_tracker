@@ -25,9 +25,6 @@ class MyApp extends StatelessWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       debugShowCheckedModeBanner: false,
       home: const CheckAuth(),
-      darkTheme:
-          ThemeData(brightness: Brightness.dark, hintColor: Colors.blueAccent),
-      themeMode: ThemeMode.dark,
       theme: _buildTheme(Brightness.light),
     );
   }
