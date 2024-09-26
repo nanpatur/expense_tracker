@@ -1,20 +1,20 @@
 import 'package:expense_tracker/blocs/expense_bloc.dart';
 import 'package:expense_tracker/models/expense_model.dart';
-import 'package:expense_tracker/widgets/button.dart';
-import 'package:expense_tracker/widgets/text_form_field.dart';
+import 'package:expense_tracker/widgets/atoms/button.dart';
+import 'package:expense_tracker/widgets/atoms/text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class AddExpense extends StatefulWidget {
-  const AddExpense({
+class AddExpenseForm extends StatefulWidget {
+  const AddExpenseForm({
     super.key,
   });
 
   @override
-  _AddExpenseState createState() => _AddExpenseState();
+  _AddExpenseFormState createState() => _AddExpenseFormState();
 }
 
-class _AddExpenseState extends State<AddExpense> {
+class _AddExpenseFormState extends State<AddExpenseForm> {
   int? amount;
   String? description;
   String? category;
