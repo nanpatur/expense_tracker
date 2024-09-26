@@ -55,7 +55,7 @@ lib/
 ├── bloc/               # Business logic components for managing app states
 ├── database/           # Database-related files (SQLite, database helper)
 ├── interceptors/       # HTTP interceptors for network requests
-├── i10n/               # Localization files for supporting multiple languages
+├── l10n/               # Localization files for supporting multiple languages
 ├── models/             # Data models representing app entities (e.g., expenses, users)
 ├── network/            # Network-related files for handling API requests
 ├── resources/          # Static resources and repositories
