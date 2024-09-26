@@ -37,17 +37,18 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
-            icon: Icon(_selectedIndex == 0 ? Icons.home : Icons.home_outlined),
+            icon: Icon(_selectedIndex == 0 ? Icons.home : Icons.home_outlined, color: Colors.grey.shade900),
             label: 'Home',
           ),
           BottomNavigationBarItem(
             icon:
-                Icon(_selectedIndex == 1 ? Icons.person : Icons.person_outline),
+                Icon(_selectedIndex == 1 ? Icons.person : Icons.person_outline, color: Colors.grey.shade900),
             label: 'Profile',
           ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.grey.shade900,
+        unselectedItemColor: Colors.grey.shade900,
         onTap: _onItemTapped,
         backgroundColor: Colors.white,
       ),

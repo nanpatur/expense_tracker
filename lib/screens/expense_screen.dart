@@ -5,6 +5,7 @@ import 'package:expense_tracker/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:date_time_format/date_time_format.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ExpenseScreen extends StatefulWidget {
   const ExpenseScreen({super.key});
@@ -61,7 +62,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
               child: ListView(scrollDirection: Axis.horizontal, children: [
                 Center(
                     child: ETButton(
-                        text: 'Today',
+                        text: AppLocalizations.of(context)?.today ?? '',
                         onPressed: () {
                           setState(() {
                             _activeFilter = 'today';
@@ -99,7 +100,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                         size: ETButtonSize.fit)),
                 IconButton(
                     onPressed: () {},
-                    icon: const Icon(Icons.calendar_month, size: 32)),
+                    icon: const Icon(Icons.calendar_month, size: 32), color: Colors.grey.shade900),
               ]),
             ),
             Container(
@@ -159,17 +160,17 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                               title: Text(
                                 snapshot.data![index].description.toString(),
                                 style: const TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 16),
+                                    fontWeight: FontWeight.bold, fontSize: 16, color: Color(0xFF333333)),
                               ),
                               subtitle: Text(
                                 _formatDate(
                                     snapshot.data![index].date.toString()),
-                                style: const TextStyle(fontSize: 12),
+                                style: const TextStyle(fontSize: 12, color: Color.fromARGB(255, 66, 66, 66)),
                               ),
                               trailing: Text(
                                 _formatAmount(snapshot.data![index].amount!),
                                 style: const TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 16),
+                                    fontWeight: FontWeight.bold, fontSize: 16, color: Color(0xFF333333)),
                               ),
                             ));
                       },

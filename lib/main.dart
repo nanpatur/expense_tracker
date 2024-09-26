@@ -4,6 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'screens/welcome_screen.dart';
 import 'screens/home_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future main() async {
   await dotenv.load(fileName: ".env");
@@ -14,15 +15,28 @@ Future main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Expense Tracker',
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       debugShowCheckedModeBanner: false,
       home: const CheckAuth(),
       darkTheme:
           ThemeData(brightness: Brightness.dark, hintColor: Colors.blueAccent),
       themeMode: ThemeMode.dark,
+      theme: _buildTheme(Brightness.light),
+    );
+  }
+
+  ThemeData _buildTheme(brightness) {
+    var baseTheme = ThemeData(brightness: brightness);
+
+    return baseTheme.copyWith(
+      textTheme: GoogleFonts.poppinsTextTheme(baseTheme.textTheme),
     );
   }
 }
@@ -64,18 +78,6 @@ class _CheckAuthState extends State<CheckAuth> {
       child = const Welcome();
     }
 
-    return MaterialApp(
-      title: 'Expense Tracker',
-      theme: _buildTheme(Brightness.light),
-      home: child,
-    );
-  }
-
-  ThemeData _buildTheme(brightness) {
-    var baseTheme = ThemeData(brightness: brightness);
-
-    return baseTheme.copyWith(
-      textTheme: GoogleFonts.poppinsTextTheme(baseTheme.textTheme),
-    );
+    return child;
   }
 }
