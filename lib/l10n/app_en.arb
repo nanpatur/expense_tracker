@@ -7,5 +7,12 @@
   "heroTitle": "Expense Tracker",
   "heroSubtitle": "Manage your expenses with ease and simplicity.",
   "login": "Login",
-  "register": "Register"
+  "register": "Register",
+  "loginTitle": "Welcome back! Glad to see you again.",
+  "forgotPassword": "Forgot Password?",
+  "username": "Username",
+  "usernameEmptyError": "Please enter your username",
+  "password": "Password",
+  "passwordEmptyError": "Please enter your password",
+  "doesntHaveAccount": "Does'nt have an account? "
 }

@@ -4,5 +4,12 @@
     "heroTitle": "Expense Tracker",
     "heroSubtitle": "Kelola pengeluaran Anda dengan mudah dan sederhana.",
     "login": "Masuk",
-    "register": "Daftar"
+    "register": "Daftar",
+    "loginTitle": "Selamat Datang kembali! Senang bertemu denganmu lagi.",
+    "forgotPassword": "Lupa Kata Sandi?",
+    "username": "Nama Pengguna",
+    "usernameEmptyError": "Silakan masukkan nama pengguna Anda",
+    "password": "Kata Sandi",
+    "passwordEmptyError": "Silakan masukkan kanta sandi Anda",
+    "doesntHaveAccount": "Belum punya akun? "
 }

@@ -5,6 +5,7 @@ import 'package:expense_tracker/widgets/atoms/button.dart';
 import 'package:expense_tracker/widgets/atoms/text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginTemplate extends StatefulWidget {
   const LoginTemplate({super.key});
@@ -34,10 +35,10 @@ class _LoginTemplateState extends State<LoginTemplate> {
   Widget _buildUsernameField() {
     return ETTextFormField(
         keyboardType: TextInputType.text,
-        label: "Username",
+        label: AppLocalizations.of(context)?.username ?? '',
         validator: (usernameValue) {
           if (usernameValue == null || usernameValue.isEmpty) {
-            return 'Please enter your username';
+            return AppLocalizations.of(context)?.usernameEmptyError ?? '';
           }
           username = usernameValue;
           return null;
@@ -48,14 +49,14 @@ class _LoginTemplateState extends State<LoginTemplate> {
     return ETTextFormField(
         keyboardType: TextInputType.text,
         obscureText: _secureText,
-        label: "Password",
+        label: AppLocalizations.of(context)?.password ?? '',
         suffixIcon: IconButton(
           onPressed: showHide,
           icon: Icon(_secureText ? Icons.visibility_off : Icons.visibility),
         ),
         validator: (passwordValue) {
           if (passwordValue == null || passwordValue.isEmpty) {
-            return 'Please enter your password';
+            return AppLocalizations.of(context)?.passwordEmptyError ?? '';
           }
           password = passwordValue;
           return null;
@@ -64,7 +65,7 @@ class _LoginTemplateState extends State<LoginTemplate> {
 
   Widget _buildLoginButton() {
     return ETButton(
-        text: _isLoading ? 'Proccessing..' : 'Login',
+        text: _isLoading ? 'Proccessing..' : AppLocalizations.of(context)?.login ?? '',
         onPressed: () {
           if (_formKey.currentState!.validate()) {
             _login();
@@ -99,10 +100,10 @@ class _LoginTemplateState extends State<LoginTemplate> {
                         padding: const EdgeInsets.all(0),
                       ),
                       const SizedBox(height: 18),
-                      const Text(
-                        "Welcome back! Glad to see you again.",
+                      Text(
+                        AppLocalizations.of(context)?.loginTitle ?? '',
                         textAlign: TextAlign.left,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.bold,
                         ),
@@ -112,11 +113,11 @@ class _LoginTemplateState extends State<LoginTemplate> {
                       const SizedBox(height: 18),
                       _buildPasswordField(),
                       const SizedBox(height: 8),
-                      const Align(
+                      Align(
                         alignment: Alignment.centerRight,
                         child: Text(
-                          "Forgot Password?",
-                          style: TextStyle(
+                          AppLocalizations.of(context)?.forgotPassword ?? '',
+                          style: const TextStyle(
                             fontSize: 14,
                           ),
                           textAlign: TextAlign.right,
@@ -131,9 +132,9 @@ class _LoginTemplateState extends State<LoginTemplate> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                      "Does'nt have an account? ",
-                      style: TextStyle(
+                    Text(
+                      AppLocalizations.of(context)?.doesntHaveAccount ?? '',
+                      style: const TextStyle(
                         color: Colors.black,
                         fontSize: 14,
                       ),
@@ -145,9 +146,9 @@ class _LoginTemplateState extends State<LoginTemplate> {
                         //     new MaterialPageRoute(
                         //         builder: (context) => Register()));
                       },
-                      child: const Text(
-                        'Register',
-                        style: TextStyle(
+                      child: Text(
+                        AppLocalizations.of(context)?.register ?? '',
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 14,
                           decoration: TextDecoration.none,
